@@ -513,8 +513,17 @@ XTRAB ................... (XTRAC * 32)
             <t><tt>TOFF</tt> = 0 in the first RTP Packet with the same
             <tt>timestamp</tt> value.</t>
 
-            <t>PTSTAMP = 0, if <tt>P</tt> = 0 in the Main Packet of this
+            <t><tt>PTSTAMP</tt> = 0, if <tt>P</tt> = 0 in the Main Packet of this
             codestream.</t>
+
+            <t>NOTE: As described at <xref target="sec-sender-ptstamp"/> and
+            <xref target="sec-recv-ptstamp"/>, <tt>PTSTAMP</tt> is intended to
+            improve clock recovery at the receiver and only applies when the
+            transmission time of two consecutive RTP packets with identical
+            <tt>timestamp</tt> fields differ by no more than 45 ms =
+            4095/90,000. <xref target="RFC5450"/> provides a means to address
+            the general case when RTP packets are transmitted at a time other
+            than their nominal transmission time.</t>
           </dd>
 
           <dt anchor="def-ESEQ">ESEQ</dt>
@@ -863,7 +872,7 @@ PID ............................. (20)
         applications.</t>
       </section>
 
-      <section>
+      <section anchor="sec-sender-ptstamp">
         <name>PTSTAMP field</name>
 
         <t>A sender SHOULD set <tt>P</tt> = 1, but only if it can generate
@@ -877,7 +886,7 @@ PID ............................. (20)
         transmitted and the 12 LSBs of the sample are stored in the
         <tt>PTSTAMP</tt> field.</t>
 
-        <t>If <tt>PTSTAMP</tt> = 1, then the transmission time <tt>TOFF</tt> (as
+        <t>If <tt>P</tt> = 1, then the transmission time <tt>TOFF</tt> (as
         defined at <xref target="def-PTSTAMP"></xref>) for two consecutive RTP
         packets with identical <tt>timestamp</tt> fields MUST NOT differ by more
         than 4095.</t>
@@ -952,7 +961,7 @@ PID ............................. (20)
     <section anchor="sec-receiver">
       <name>Receiver</name>
 
-      <section>
+      <section anchor="sec-recv-ptstamp">
         <name>PTSTAMP</name>
 
         <t>Receivers can use <tt>PTSTAMP</tt> values to accelerate sender clock
@@ -1703,6 +1712,7 @@ c8000000c800000064000000000001080000
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7201.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7202.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.3745.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5450.xml"/>
       </references>
     </references>
 
