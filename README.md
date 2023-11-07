@@ -1,5 +1,4 @@
-# RTP Payload Format for ultra-low latency JPEG 2000 streaming
-
+# RTP Payload Format for sub-codestream latency JPEG 2000 streaming
 ## Prerequisites
 
 ### xml2rfc
@@ -12,4 +11,4 @@
 
 ## Rendered specification
 
-https://github.com/sandflow/rfc-rtp-ull-j2k/blob/gh-pages/index.pdf
+https://github.com/sandflow/rfc-j2k-scl/blob/gh-pages/index.pdf
