@@ -11,12 +11,12 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude" submissionType="IETF"
 category="std" ipr="trust200902" consensus="true"
-docName="draft-lemieux-avtcore-rtp-j2k-scl-01" xml:lang="en" version="3">
+docName="draft-ietf-avtcore-rtp-j2k-scl-00" xml:lang="en" version="3">
   <front>
     <title abbrev="Sub-codestream latency J2K over RTP">RTP Payload Format for
     sub-codestream latency JPEG 2000 streaming</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-lemieux-avtcore-rtp-j2k-scl-01"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-avtcore-rtp-j2k-scl-00"/>
 
     <author initials='P.-A.' surname='Lemieux' fullname='Pierre-Anthony Lemieux' role="editor">
 
@@ -1917,8 +1917,8 @@ c8000000c800000064000000000001080000
         exhaustive.</t>
       </section>
 
-			<section anchor="sec-soc-draft-lemieux-avtcore-rtp-j2k-scl-00">
-				<name>Changes from <tt>draft-lemieux-avtcore-rtp-j2k-scl-00</tt></name>
+			<section anchor="sec-soc-draft-ietf-avtcore-rtp-j2k-scl-00">
+				<name>Changes from <tt>draft-ietf-avtcore-rtp-j2k-scl-00</tt></name>
 
         <ul>
           <li>Allow multi-tile images in a single stream, in addition to
