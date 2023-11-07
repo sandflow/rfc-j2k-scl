@@ -1,0 +1,35 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: install xml2rfc
+        run: pip install xml2rfc==3.17.5
+
+      - name: install WeasyPrint
+        run: |
+          pip install WeasyPrint 
+
+      - name: build html
+        run: |
+          mkdir build
+          xml2rfc *.xml -o build/index.pdf --pdf
+
+      - name: deploy to GH pages
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          branch: gh-pages
+          folder: build
