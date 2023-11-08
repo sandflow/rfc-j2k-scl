@@ -521,9 +521,9 @@ XTRAB ................... (XTRAC * 32)
             improve clock recovery at the receiver and only applies when the
             transmission time of two consecutive RTP packets with identical
             <tt>timestamp</tt> fields differ by no more than 45 ms =
-            4095/90,000. <xref target="RFC5450"/> provides a means to address
-            the general case when RTP packets are transmitted at a time other
-            than their nominal transmission time.</t>
+            4095/90,000. <xref target="RFC5450"/> provides addresses the general
+            case when a RTP packet is transmitted at a time other than its
+            nominal transmission time.</t>
           </dd>
 
           <dt anchor="def-ESEQ">ESEQ</dt>
