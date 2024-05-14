@@ -371,7 +371,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
         </figure>
 
         <dl newline="true">
-          <dt anchor="def-MH">MH</dt>
+          <dt anchor="def-MH">MH (Codestream Main Header Presence)</dt>
           <dd>
             <dl newline="true">
               <dt>0</dt>
@@ -388,7 +388,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
             </dl>
           </dd>
 
-          <dt anchor="def-TP">TP</dt>
+          <dt anchor="def-TP">TP (Image Type)</dt>
           <dd>
             <t>Indicates the scanning structure of the image to which the
             payload belongs.</t>
@@ -426,7 +426,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
             </dl>
           </dd>
 
-          <dt anchor="def-ORDH">ORDH</dt>
+          <dt anchor="def-ORDH">ORDH (Progression Order [Main Packet])</dt>
           <dd>
               <t>Specifies the progression order used by the codestream and
               whether resync points are signaled.</t>
@@ -482,7 +482,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
               in <xref target="jpeg2000-1"/>.</t>
           </dd>
 
-          <dt anchor="def-P">P</dt>
+          <dt anchor="def-P">P (Precision Timestamp Presence)</dt>
           <dd>
             <dl newline="true">
               <dt>0</dt>
@@ -492,10 +492,10 @@ Packets |        Main         | Body | ... |    Body   | Main ...
             </dl>
           </dd>
 
-          <dt anchor="def-XTRAC">XTRAC</dt>
+          <dt anchor="def-XTRAC">XTRAC (Extension Payload Length)</dt>
           <dd>Length, in multiples of 4 bytes, of the <tt>XTRAB</tt> field.</dd>
 
-          <dt anchor="def-PTSTAMP">PTSTAMP</dt>
+          <dt anchor="def-PTSTAMP">PTSTAMP (Precision Timestamp)</dt>
           <dd>
             <t>PTSTAMP = (<tt>timestamp</tt> + <tt>TOFF</tt>) mod 4096, if
             <tt>P</tt> = 1 in the Main Packet of this codestream.</t>
@@ -520,10 +520,10 @@ Packets |        Main         | Body | ... |    Body   | Main ...
             nominal transmission time.</t>
           </dd>
 
-          <dt anchor="def-ESEQ">ESEQ</dt>
+          <dt anchor="def-ESEQ">ESEQ (Extended Sequence Number)</dt>
           <dd>The high order bits of the extended sequence number.</dd>
 
-          <dt anchor="def-R">R</dt>
+          <dt anchor="def-R">R (Codestream Main Header Reuse)</dt>
           <dd>
             <t>Determines whether Main Packet and codestream header information
             can be reused across codestreams.</t>
@@ -548,7 +548,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
             </dl>
           </dd>
 
-          <dt anchor="def-S">S</dt>
+          <dt anchor="def-S">S (Parameterized Colorspace Presence)</dt>
           <dd>
             <dl newline="true">
               <dt>0</dt>
@@ -617,7 +617,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
             </dl>
           </dd>
 
-          <dt anchor="def-C">C</dt>
+          <dt anchor="def-C">C (Code-block Caching Usage)</dt>
           <dd>
             <dl newline="true">
               <dt>0</dt>
@@ -630,27 +630,27 @@ Packets |        Main         | Body | ... |    Body   | Main ...
             </dl>
           </dd>
 
-          <dt anchor="def-RSVD">RSVD</dt>
+          <dt anchor="def-RSVD">RSVD (Reserved)</dt>
           <dd>Reserved value. See <xref target="sec-receiver-reserved"/> and
           <xref target="sec-sender-reserved"/>.</dd>
 
-          <dt anchor="def-F">RANGE</dt>
+          <dt anchor="def-F">RANGE (Video Full Range Usage)</dt>
           <dd>Value of the VideoFullRangeFlag specified in <xref
           target="rec-itu-t-h273"/></dd>
 
-          <dt anchor="def-PRIMS">PRIMS</dt>
+          <dt anchor="def-PRIMS">PRIMS (Color Primaries)</dt>
           <dd>One of the ColourPrimaries values specified in <xref
           target="rec-itu-t-h273"/></dd>
 
-          <dt anchor="def-TRANS">TRANS</dt>
+          <dt anchor="def-TRANS">TRANS (Transfer Characteristics)</dt>
           <dd>One of the TransferCharacteristics values specified in
           <xref target="rec-itu-t-h273"/></dd>
 
-          <dt anchor="def-MAT"><tt>MAT</tt></dt>
+          <dt anchor="def-MAT"><tt>MAT (Color Matrix Coefficients)</tt></dt>
           <dd>One of the MatrixCoefficients values specified in <xref
           target="rec-itu-t-h273"/></dd>
 
-          <dt anchor="def-XTRAB">XTRAB</dt>
+          <dt anchor="def-XTRAB">XTRAB (Extension Payload)</dt>
           <dd>Allows the contents of the Main Packet Payload Header to be
           extended in the future. See <xref target="sec-receiver-xtrab"/> and
           <xref target="sec-sender-xtrab"/>.</dd>
@@ -681,7 +681,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
         </figure>
 
         <dl newline="true">
-          <dt anchor="def-RES">RES</dt>
+          <dt anchor="def-RES">RES (Resolution Layers)</dt>
           <dd>
             <dl newline="true">
               <dt>0</dt>
@@ -696,7 +696,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
             </dl>
           </dd>
 
-          <dt anchor="def-ORDB">ORDB</dt>
+          <dt anchor="def-ORDB">ORDB (Progression Order [Body Packet]</dt>
           <dd>
               <dl newline="true">
                 <dt>0</dt>
@@ -709,7 +709,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
               one tile.</t>
           </dd>
 
-          <dt anchor="def-QUAL">QUAL</dt>
+          <dt anchor="def-QUAL">QUAL (Quality Layers)</dt>
           <dd>
             <dl newline="true">
               <dt>0</dt>
@@ -721,14 +721,14 @@ Packets |        Main         | Body | ... |    Body   | Main ...
             </dl>
           </dd>
 
-          <dt anchor="def-POS">POS</dt>
+          <dt anchor="def-POS">POS (Resync Point Offset)</dt>
           <dd>
             <t>Byte offset from the start of the payload to the first byte of
             the resync point belonging to the precinct identified by PID.</t>
             <t><tt>POS</tt> MUST be 0 if <tt>ORDB</tt> = 0.</t>
           </dd>
 
-          <dt anchor="def-PID">PID</dt>
+          <dt anchor="def-PID">PID (Precinct Identifier)</dt>
           <dd>
             <t>Unique identifier of the precinct of the resync point.</t>
 
