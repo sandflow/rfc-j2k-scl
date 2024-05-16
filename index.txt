@@ -343,7 +343,7 @@ Internet-Draft     Sub-codestream latency J2K over RTP          May 2024
    When concatenated, the sequence of JPEG 2000 codestream fragments
    emitted by the sender MUST be a sequence of JPEG 2000 codestreams
    where two successive JPEG 2000 codestreams MAY be separated by one or
-   more arbitrary padding bytes.
+   more arbitrary padding bytes (see Figure 1).
 
    The JPEG 2000 codestreams MUST conform to Section 6.
 
@@ -414,7 +414,7 @@ Internet-Draft     Sub-codestream latency J2K over RTP          May 2024
 
 5.3.  Main Packet Payload Header
 
-   Figure 1 specifies the structure of the payload header.  Fields are
+   Figure 2 specifies the structure of the payload header.  Fields are
    interpreted as unsigned binary integers in network order.
 
     0                   1                   2                   3
