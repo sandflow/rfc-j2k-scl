@@ -947,8 +947,9 @@ Packets |        Main         | Body | ... |    Body   | Main ...
         </ul>
 
         <t>NOTE: the last condition allows the encoder to insert padding bytes
-        to achieve a constant bit rate even when code-block does not contribute
-        code-bytes, as suggested at <xref target="jpeg2000-15"/>, F.4.</t>
+        to achieve a constant bit rate even when a code-block does not
+        contribute code-bytes, as suggested at <xref target="jpeg2000-15"/>,
+        F.4.</t>
       </section>
     </section>
 
