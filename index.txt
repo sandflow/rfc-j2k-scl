@@ -983,7 +983,7 @@ Internet-Draft     Sub-codestream latency J2K over RTP          May 2024
       are between 0xFF80 and 0xFF8F.
 
    NOTE: the last condition allows the encoder to insert padding bytes
-   to achieve a constant bit rate even when code-block does not
+   to achieve a constant bit rate even when a code-block does not
    contribute code-bytes, as suggested at [jpeg2000-15], F.4.
 
 8.  Receiver
