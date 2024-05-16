@@ -21,12 +21,12 @@ jobs:
 
       - name: install WeasyPrint
         run: |
-          pip install WeasyPrint 
+          pip install WeasyPrint
 
       - name: build html
         run: |
           mkdir build
-          xml2rfc *.xml -o build/index.pdf --pdf
+          xml2rfc *.xml -o build/index.txt --txt
 
       - name: deploy to GH pages
         uses: JamesIves/github-pages-deploy-action@v4.3.3

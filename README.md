@@ -11,4 +11,4 @@
 
 ## Rendered specification
 
-https://github.com/sandflow/rfc-j2k-scl/blob/gh-pages/index.pdf
+https://github.com/sandflow/rfc-j2k-scl/blob/gh-pages/index.txt
