@@ -265,7 +265,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
         <t>When concatenated, the sequence of JPEG 2000 codestream fragments
         emitted by the sender MUST be a sequence of JPEG 2000 codestreams where
         two successive JPEG 2000 codestreams MAY be separated by one or more
-        arbitrary padding bytes.</t>
+        arbitrary padding bytes (see <xref target="fig-payload-header"/>).</t>
 
         <t>The JPEG 2000 codestreams MUST conform to <xref
         target="sec-codestream"/>.</t>
@@ -347,7 +347,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
 
       <section anchor="sec-main-packet-header">
         <name>Main Packet Payload Header</name>
-        <t><xref target="fig-payload-header"/> specifies the structure of the
+        <t><xref target="fig-main-payload-header"/> specifies the structure of the
         payload header. Fields are interpreted as unsigned binary integers in
         network order.</t>
         <figure anchor="fig-main-payload-header">
