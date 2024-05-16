@@ -10,7 +10,7 @@ Expires: 17 November 2024                  University of New South Wales
 
 
    RTP Payload Format for sub-codestream latency JPEG 2000 streaming
-                   draft-ietf-avtcore-rtp-j2k-scl-00
+                   draft-ietf-avtcore-rtp-j2k-scl-01
 
 Abstract
 
@@ -105,7 +105,7 @@ Table of Contents
    Appendix C.  Sample formats . . . . . . . . . . . . . . . . . . .  34
    Appendix D.  Summary of Changes (Informative) . . . . . . . . . .  35
      D.1.  Introduction  . . . . . . . . . . . . . . . . . . . . . .  35
-     D.2.  Changes from draft-ietf-avtcore-rtp-j2k-scl-00  . . . . .  35
+     D.2.  Changes from draft-ietf-avtcore-rtp-j2k-scl-01  . . . . .  35
 
 
 
@@ -1917,7 +1917,7 @@ D.1.  Introduction
    specification.  This summary is informative and not intended to be
    exhaustive.
 
-D.2.  Changes from draft-ietf-avtcore-rtp-j2k-scl-00
+D.2.  Changes from draft-ietf-avtcore-rtp-j2k-scl-01
 
    *  Allow multi-tile images in a single stream, in addition to
       allowing multi-tile images to be transmitted as multiple single-
