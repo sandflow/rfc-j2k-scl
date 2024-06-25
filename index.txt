@@ -308,8 +308,13 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
    Packets |        Main         | Body | ... |    Body   | Main ...
            +---------------------+------+-//--+-----------+---------
 
+           SOC = Start of codestream marker
+           SOD = Start of data marker
+           EOC = End of codestream marker
+           P = (Optional) padding bytes
+
        Figure 1: Packetization of a sequence of JPEG 2000 codestreams
-              (not to scale).  P are arbitrary padding bytes.
+                              (not to scale).
 
    Each RTP packet, as specified at [RFC3550], is either a Main Packet
    or a Body Packet.
@@ -326,17 +331,16 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
    A Body Packet consists of the following ordered sequence of
    structures concatenated without gaps:
 
-   *  the RTP Fixed Header;
-
-   *  a Body Packet Payload Header, as specified at Section 5.4; and
-
-
 
 
 Lemieux & Taubman       Expires 27 December 2024                [Page 6]
 
 Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
+
+   *  the RTP Fixed Header;
+
+   *  a Body Packet Payload Header, as specified at Section 5.4; and
 
    *  the payload, which consists of a JPEG 2000 codestream fragment.
 
@@ -382,10 +386,6 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
       0  Otherwise
 
    timestamp
-      The timestamp is the presentation time of the image to which the
-      payload belongs.
-
-      The timestamp clock rate is 90 kHz.
 
 
 
@@ -393,6 +393,11 @@ Lemieux & Taubman       Expires 27 December 2024                [Page 7]
 
 Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
+
+      The timestamp is the presentation time of the image to which the
+      payload belongs.
+
+      The timestamp clock rate is 90 kHz.
 
       The timestamp of successive progressive frames MUST advance at
       regular increments based on the instantaneous video frame rate.
@@ -438,17 +443,16 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
            Figure 2: Structure of the Main Packet Payload Header
 
-   MH (Codestream Main Header Presence)
-      0 
-         The RTP Packet is a Body Packet.
-
-
 
 
 Lemieux & Taubman       Expires 27 December 2024                [Page 8]
 
 Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
+
+   MH (Codestream Main Header Presence)
+      0 
+         The RTP Packet is a Body Packet.
 
       1 
          The RTP Packet is a Main Packet and the codestream has more
@@ -493,10 +497,6 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
          Segment 2 of a progressive segmented frame, where the first
          line of the image is the second line of the frame.
 
-      7 
-         Extension value.  See Section 8.6 and Section 7.8.
-
-   ORDH (Progression Order [Main Packet])
 
 
 
@@ -506,6 +506,10 @@ Lemieux & Taubman       Expires 27 December 2024                [Page 9]
 Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
 
+      7 
+         Extension value.  See Section 8.6 and Section 7.8.
+
+   ORDH (Progression Order [Main Packet])
       Specifies the progression order used by the codestream and whether
       resync points are signaled.
 
@@ -550,10 +554,6 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
       ORDH MUST be 0 is the codestream consists of more than one tile.
 
-      NOTE: Only ORDH = 4 and ORDH = 6 allow sub-codestream latency
-      streaming.
-
-
 
 
 
@@ -561,6 +561,9 @@ Lemieux & Taubman       Expires 27 December 2024               [Page 10]
 
 Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
+
+      NOTE: Only ORDH = 4 and ORDH = 6 allow sub-codestream latency
+      streaming.
 
       NOTE: Progression order PRCL is defined in [jpeg2000-2].  The
       other progression orders are specified in [jpeg2000-1].
@@ -606,9 +609,6 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
       can be reused across codestreams.
 
       1 
-         All Main Packets in this stream, as identified by its SSRC
-         value:
-
 
 
 
@@ -617,6 +617,9 @@ Lemieux & Taubman       Expires 27 December 2024               [Page 11]
 
 Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
+
+         All Main Packets in this stream, as identified by its SSRC
+         value:
 
          *  MUST have identical Main Packet Payload Headers, with the
             exception of their TP, MH, ESEQ and PTSTAMP fields;
@@ -643,9 +646,6 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
          The codestream components MUST conform to one of the
          combinations at Table 1.
-
-
-
 
 
 
