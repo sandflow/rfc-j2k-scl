@@ -217,7 +217,7 @@ docName="draft-ietf-avtcore-rtp-j2k-scl-01" xml:lang="en" version="3">
 
         <figure anchor="fig-payload-header">
           <name>Packetization of a sequence of JPEG 2000 codestreams (not to
-          scale). P are arbitrary padding bytes.</name>
+          scale).</name>
           <artwork type="ascii-art">
 <![CDATA[
         <----------- Codestream (image) --------->
@@ -233,6 +233,11 @@ docName="draft-ietf-avtcore-rtp-j2k-scl-01" xml:lang="en" version="3">
         +---------------------+------+-//--+-----------+---------
 Packets |        Main         | Body | ... |    Body   | Main ...
         +---------------------+------+-//--+-----------+---------
+
+        SOC = Start of codestream marker
+        SOD = Start of data marker
+        EOC = End of codestream marker
+        P = (Optional) padding bytes
 ]]>
           </artwork>
         </figure>
