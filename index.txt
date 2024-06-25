@@ -69,15 +69,15 @@ Table of Contents
      5.2.  RTP Fixed Header Usage  . . . . . . . . . . . . . . . . .   7
      5.3.  Main Packet Payload Header  . . . . . . . . . . . . . . .   8
      5.4.  Body Packet Payload Header  . . . . . . . . . . . . . . .  14
-   6.  JPEG 2000 codestream requirements . . . . . . . . . . . . . .  15
-     6.1.  General . . . . . . . . . . . . . . . . . . . . . . . . .  15
+   6.  JPEG 2000 codestream requirements . . . . . . . . . . . . . .  16
+     6.1.  General . . . . . . . . . . . . . . . . . . . . . . . . .  16
      6.2.  Transmitting multi-tile images as multiple single-tile
            images  . . . . . . . . . . . . . . . . . . . . . . . . .  16
-   7.  Sender requirements . . . . . . . . . . . . . . . . . . . . .  16
-     7.1.  Main Packet . . . . . . . . . . . . . . . . . . . . . . .  16
+   7.  Sender requirements . . . . . . . . . . . . . . . . . . . . .  17
+     7.1.  Main Packet . . . . . . . . . . . . . . . . . . . . . . .  17
      7.2.  RTP Packet filtering  . . . . . . . . . . . . . . . . . .  17
      7.3.  Resync point  . . . . . . . . . . . . . . . . . . . . . .  17
-     7.4.  PTSTAMP field . . . . . . . . . . . . . . . . . . . . . .  17
+     7.4.  PTSTAMP field . . . . . . . . . . . . . . . . . . . . . .  18
      7.5.  RES field . . . . . . . . . . . . . . . . . . . . . . . .  18
      7.6.  Extra information . . . . . . . . . . . . . . . . . . . .  18
      7.7.  Reserved values . . . . . . . . . . . . . . . . . . . . .  18
@@ -754,9 +754,15 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
    |         POS           |                  PID                  |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-   * ORDH
+   * ORDB
 
            Figure 3: Structure of the Body Packet Payload Header
+
+   MH
+      See Section 5.3.
+
+   TP
+      See Section 5.3.
 
    RES (Resolution Layers)
       0 
@@ -773,18 +779,17 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
       0 
          No resync point is specified for the payload.
 
-      1 
-         The payload contains a resync point.
-
-      ORDB MUST be 0 is the codestream consists of more than one tile.
-
-
 
 
 Lemieux & Taubman       Expires 27 December 2024               [Page 14]
 
 Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
+
+      1 
+         The payload contains a resync point.
+
+      ORDB MUST be 0 is the codestream consists of more than one tile.
 
    QUAL (Quality Layers)
       0 
@@ -793,6 +798,12 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
       Otherwise
          The payload contributes only to quality layer index QUAL or
          above.
+
+   PTSTAMP
+      See Section 5.3.
+
+   ESEQ
+      See Section 5.3.
 
    POS (Resync Point Offset)
       Byte offset from the start of the payload to the first byte of the
@@ -823,6 +834,14 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
       NOTE: PID is identical to precinct identifier I specified in
       [jpeg2000-9].
 
+
+
+
+Lemieux & Taubman       Expires 27 December 2024               [Page 15]
+
+Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
+
+
 6.  JPEG 2000 codestream requirements
 
 6.1.  General
@@ -834,13 +853,6 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
    NOTE: The Rsiz parameter and CAP marker segments of each JPEG 2000
    codestream contain detailed information on the capabilities necessary
    to decode the codestream.
-
-
-
-Lemieux & Taubman       Expires 27 December 2024               [Page 15]
-
-Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
-
 
    NOTE: The caps media type parameter defined in Section 9.2 allows
    applications to signal required device capabilities.
@@ -879,6 +891,13 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
    Such sequences of single-tile images are identified using the tile
    media type parameter specified at Section 9.2.
 
+
+
+Lemieux & Taubman       Expires 27 December 2024               [Page 16]
+
+Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
+
+
 7.  Sender requirements
 
 7.1.  Main Packet
@@ -889,14 +908,6 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
    The sender MUST either emit a single Main Packet with MH = 3, or one
    or more Main Packets with MH = 1 followed by a single Main Packet
    with MH = 2.
-
-
-
-
-Lemieux & Taubman       Expires 27 December 2024               [Page 16]
-
-Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
-
 
    The Main Packet Payload Headers fields MUST be identical in all Main
    Packet of a given codestream, with the exception of:
@@ -935,6 +946,14 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
    marker segments, albeit tailored for high bandwidth low latency
    streaming applications.
 
+
+
+
+Lemieux & Taubman       Expires 27 December 2024               [Page 17]
+
+Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
+
+
 7.4.  PTSTAMP field
 
    A sender SHOULD set P = 1, but only if it can generate PTSTAMP
@@ -946,13 +965,6 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
    incremented by a 90kHz clock.  The counter is sampled at the point
    when each RTP Packet is or SHOULD be at least notionally transmitted
    and the 12 LSBs of the sample are stored in the PTSTAMP field.
-
-
-
-Lemieux & Taubman       Expires 27 December 2024               [Page 17]
-
-Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
-
 
    If P = 1, then the transmission time TOFF (as defined at Section 5.3)
    for two consecutive RTP packets with identical timestamp fields MUST
@@ -988,6 +1000,16 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
    This section applies only if C = 1.
 
+
+
+
+
+
+Lemieux & Taubman       Expires 27 December 2024               [Page 18]
+
+Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
+
+
    A sender can improve bandwidth efficiency by only occasionally
    transmitting code-blocks corresponding to static portions of the
    video and otherwise transmitting empty code-blocks.  When C = 1, and
@@ -1002,13 +1024,6 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
    receiver's cache: some code-blocks might have been lost in transit,
    the sender doesn't know exactly when the receiver started processing
    the stream, etc.
-
-
-
-Lemieux & Taubman       Expires 27 December 2024               [Page 18]
-
-Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
-
 
    A code-block is _empty_ if:
 
@@ -1040,21 +1055,6 @@ Internet-Draft     Sub-codestream latency J2K over RTP         June 2024
 
    The JPEG 2000 coding process decomposes an image using a sequence of
    discrete wavelet transforms (DWT) stages.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
