@@ -691,12 +691,18 @@ Packets |        Main         | Body | ... |    Body   | Main ...
 |         POS           |                  PID                  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-* ORDH
+* ORDB
 ]]>
           </artwork>
         </figure>
 
         <dl newline="true">
+          <dt>MH</dt>
+          <dd>See <xref target="def-MH"/>.</dd>
+
+          <dt>TP</dt>
+          <dd>See <xref target="def-TP"/>.</dd>
+
           <dt anchor="def-RES">RES (Resolution Layers)</dt>
           <dd>
             <dl newline="true">
@@ -736,6 +742,12 @@ Packets |        Main         | Body | ... |    Body   | Main ...
               <tt>QUAL</tt> or above.</dd>
             </dl>
           </dd>
+
+          <dt>PTSTAMP</dt>
+          <dd>See <xref target="def-PTSTAMP"/>.</dd>
+
+          <dt>ESEQ</dt>
+          <dd>See <xref target="def-ESEQ"/>.</dd>
 
           <dt anchor="def-POS">POS (Resync Point Offset)</dt>
           <dd>
