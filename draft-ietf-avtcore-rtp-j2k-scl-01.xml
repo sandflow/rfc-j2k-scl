@@ -838,6 +838,54 @@ Packets |        Main         | Body | ... |    Body   | Main ...
         <tt>tile</tt> media type parameter specified at <xref
         target="dt-tile"/>.</t>
 
+        <t><xref target="fig-multi-tile-splitting"/> illustrates this
+        process.</t>
+
+        <figure anchor="fig-multi-tile-splitting">
+          <name>Illustration of the process of transmitting a multi-tile image
+          sequence as two single-tile image sequences, each in its own RTP
+          stream.</name>
+          <artwork type="ascii-art">
+<![CDATA[
+(a) Multi-tile image
+
+  <- Header -> <- Tile #0 -> <- Tile #1 ->
+  |           |             |             |
+  +-----+-----+-----+-------+-----+-------+-----+
+  | SOC | ... | SOT | .(1). | SOT | .(2). | EOC |
+  +-----+-----+-----+-------+-----+-------+-----+
+
+  (1) data for Tile #0
+  (2) data for Tile #1
+
+
+(b) Resulting two single-tile images each in its own RTP stream
+
+                                   "tile" parameter of the media type
+                                   associated with the RTP stream
+  RTP stream #1
+
+  <- Header -> <- Tile #0 ->
+  |           |             |
+  +-----+-----+-----+-------+-----+
+  | SOC | ... | SOT | .(1). | EOC |  tile=0&amp;00000190000000c80000\
+  +-----+-----+-----+-------+-----+       00c800000000000000c8000000\
+                                          c8000000640000000000010800\
+                                          00
+
+  RTP stream #2
+
+  <- Header -> <- Tile #0 ->
+  |           |             |
+  +-----+-----+-----+-------+-----+
+  | SOC | ... | SOT | .(2). | EOC |  tile=1&amp;00000190000000c80000\
+  +-----+-----+-----+-------+-----+       00c800000000000000c8000000\
+                                          c8000000640000000000010800\
+                                          00
+]]>
+          </artwork>
+        </figure>
+
       </section>
     </section>
 
