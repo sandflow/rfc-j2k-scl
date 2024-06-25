@@ -338,10 +338,16 @@ Packets |        Main         | Body | ... |    Body   | Main ...
             equal.</t>
           </dd>
 
-          <dt><tt>sequence number</tt></dt>
-          <dd>The low-order bits of the RTP sequence number. The higher order
-          bits of the RTP sequence number are contained in the <tt>ESEQ</tt>
-          field.</dd>
+          <dt anchor="def-seq"><tt>sequence number</tt></dt>
+          <dd>
+          <t>The low-order bits of the RTP sequence number.</t>
+
+          <t>The higher order bits of the RTP sequence number are contained in
+          the <tt>ESEQ</tt> field, which is specified at <xref
+          target="def-ESEQ"/>.</t>
+
+          <t>The RTP sequence number is calculated as follows:</t>
+          <t><tt>ESEQ * 65536 + sequence number</tt></t></dd>
         </dl>
       </section>
 
@@ -521,7 +527,12 @@ Packets |        Main         | Body | ... |    Body   | Main ...
           </dd>
 
           <dt anchor="def-ESEQ">ESEQ (Extended Sequence Number)</dt>
-          <dd>The high order bits of the extended sequence number.</dd>
+          <dd>
+            <t>The high order bits of the RTP sequence number.</t>
+            <t><xref target="def-seq"/> specifies the The low-order bits of the
+            RTP sequence number and the formula to compute the RTP sequence
+            number</t>
+          </dd>
 
           <dt anchor="def-R">R (Codestream Main Header Reuse)</dt>
           <dd>
