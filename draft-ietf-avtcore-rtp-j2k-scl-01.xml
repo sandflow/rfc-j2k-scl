@@ -137,10 +137,6 @@ docName="draft-ietf-avtcore-rtp-j2k-scl-01" xml:lang="en" version="3">
       can be further divided into contiguous rectangular tiles that are each
       independently coded and decoded.</t>
 
-      <t>NOTE: This payload format allows the transmission of  multi-tile images
-      as multiple single-tile images per stream, as specified at <xref
-      target="sec-mt-images"/>.</t>
-
       <t>JPEG 2000 codes each image as a standalone codestream. Each codestream
       consists of (i) marker segments, which contain coding parameters and
       metadata, and (ii) coded data.</t>
@@ -817,76 +813,6 @@ Packets |        Main         | Body | ... |    Body   | Main ...
         decomposition.</t>
       </section>
 
-      <section anchor="sec-mt-images">
-        <name>Transmitting multi-tile images as multiple single-tile images</name>
-
-        <t>A sequence of multi-tile images can be transmitted by splitting it
-        into multiple sequences of single-tile images, where:</t>
-
-        <ul>
-          <li>each sequence of single-tile images corresponds to a unique tile
-          of the multi-tile image;</li>
-          <li>each sequence of single-tile images is transmitted in a separate
-          RTP stream;</li>
-          <li>the coordinates of each single-tile image are expressed using the
-          coordinate system of the multi-tile image; and</li>
-          <li>the bitstreams of each of each single-tile image are identical to
-          the corresponding bitstreams in the multi-tile image.</li>
-        </ul>
-
-        <t>Such sequences of single-tile images are identified using the
-        <tt>tile</tt> media type parameter specified at <xref
-        target="dt-tile"/>.</t>
-
-        <t><xref target="fig-multi-tile-splitting"/> illustrates this
-        process.</t>
-
-        <figure anchor="fig-multi-tile-splitting">
-          <name>Illustration of the process of transmitting a multi-tile image
-          sequence as two single-tile image sequences, each in its own RTP
-          stream.</name>
-          <artwork type="ascii-art">
-<![CDATA[
-(a) Multi-tile image
-
-  <- Header -> <- Tile #0 -> <- Tile #1 ->
-  |           |             |             |
-  +-----+-----+-----+-------+-----+-------+-----+
-  | SOC | ... | SOT | .(1). | SOT | .(2). | EOC |
-  +-----+-----+-----+-------+-----+-------+-----+
-
-  (1) data for Tile #0
-  (2) data for Tile #1
-
-
-(b) Resulting two single-tile images each in its own RTP stream
-
-                                   "tile" parameter of the media type
-                                   associated with the RTP stream
-  RTP stream #1
-
-  <- Header -> <- Tile #0 ->
-  |           |             |
-  +-----+-----+-----+-------+-----+
-  | SOC | ... | SOT | .(1). | EOC |  tile=0&amp;00000190000000c80000\
-  +-----+-----+-----+-------+-----+       00c800000000000000c8000000\
-                                          c8000000640000000000010800\
-                                          00
-
-  RTP stream #2
-
-  <- Header -> <- Tile #0 ->
-  |           |             |
-  +-----+-----+-----+-------+-----+
-  | SOC | ... | SOT | .(2). | EOC |  tile=1&amp;00000190000000c80000\
-  +-----+-----+-----+-------+-----+       00c800000000000000c8000000\
-                                          c8000000640000000000010800\
-                                          00
-]]>
-          </artwork>
-        </figure>
-
-      </section>
     </section>
 
 
@@ -928,9 +854,7 @@ Packets |        Main         | Body | ... |    Body   | Main ...
 
         <t>NOTE: Resync points cannot be specified if the codestream consists of
         more than one tile (<tt>ORDB</tt> and <tt>ORDH</tt> are both equal to
-        zero). To transmit codestreams that consist of more than one tile and
-        benefit from resync points, the technique specified at <xref
-        target="sec-mt-images"/> can be used.</t>
+        zero).</t>
 
         <t>NOTE: A resync point can be used by a receiver to process a
         codestream even if earlier packets in the codestream have been
@@ -1415,197 +1339,6 @@ Packets |        Main         | Body | ... |    Body   | Main ...
                 specified in this document, are unspecified.</t>
               </dd>
 
-              <dt anchor="dt-tile"><tt>tile</tt></dt>
-              <dd>
-                <t>The parameter MUST conform to the <tt>tile</tt> syntax
-                expressed using ABNF (<xref target="RFC5234"/>):</t>
-                <sourcecode type="abnf">
-<![CDATA[
-tile        = tile-index "&" image-siz
-tile-index  = %x31-39 *%x30-39
-image-siz   = 1*HEXDIG
-]]>
-                </sourcecode>
-
-                <t>If the <tt>tile</tt> parameter is present, each image MUST
-                correspond to one tile of a multi-tile image, as defined in
-                <xref target="sec-mt-images"/>.</t>
-
-                <t><tt>tile-index</tt> is the index of the tile in the
-                multi-tile image.</t>
-
-                <t><tt>image-siz</tt> contains the <tt>SIZ</tt> marker segment
-                parameters of the multi-tile image, encoded as a case
-                insensitive hexadecimal string.</t>
-
-                <t>The <tt>SIZ</tt> parameters of each single-tile image MUST
-                conform to the following:</t>
-
-                <ul>
-                  <li><tt>Xsiz</tt> MUST be equal to the smaller of (i) the
-                  coordinate of the right edge of tile index
-                  <tt>tile-index</tt> in the multi-tile image and (ii)
-                  <tt>Xsiz</tt> of the multi-tile image.</li>
-
-                  <li><tt>Ysiz</tt> MUST be equal to the smaller of (i) the
-                  coordinate of the bottom edge of tile index
-                  <tt>tile-index</tt> in the multi-tile image and (ii)
-                  <tt>Ysiz</tt> of the multi-tile image.</li>
-
-                  <li><tt>XOsiz</tt> MUST be equal to the larger of (i) the
-                  coordinate of the left edge of tile index
-                  <tt>tile-index</tt> in the multi-tile image and (ii)
-                  <tt>XOsiz</tt> of the multi-tile image.</li>
-
-                  <li><tt>YOsiz</tt> MUST be equal to the larger of (i) the
-                  coordinate of the top edge of tile index
-                  <tt>tile-index</tt> in the multi-tile image and (ii)
-                  <tt>YOsiz</tt> of the multi-tile image.</li>
-
-                  <li><tt>XTOsiz</tt> MUST be equal to the coordinate of the
-                  left edge of tile index <tt>tile-index</tt> in the multi-tile
-                  image.</li>
-
-                  <li><tt>YTOsiz</tt> MUST be equal to the coordinate of the top
-                  edge of tile index <tt>tile-index</tt> in the multi-tile
-                  image.</li>
-
-                  <li>All other parameters MUST be equal to that in the
-                  multi-tile image.</li>
-                </ul>
-
-                <t><xref target="fig-multi-tile-diagram"/> illustrates an
-                example where a multi-tile image that consists of two tiles is
-                transmitted as two single-tile images (images 1 and 2). <xref
-                target="fig-multi-tile-parameter-example"/> and <xref
-                target="t-mt-example"/> describe the <tt>tile</tt> and
-                <tt>SIZ</tt> parameter values, respectively.</t>
-
-                <figure anchor="fig-multi-tile-diagram">
-                  <name>Ssiz parameters for a multi-tile image and two
-                  corresponding single-tile images 1 and 2.</name>
-                  <artwork type="ascii-art">
-<![CDATA[
-(a) Multi-tile image
-
-<----------Xsiz---------->
-<----> XTOSiz
-+------------------------+
-|    <---Xtsiz---->      |
-|    xxxxxxxxxxxxxxxxxxxxxxxxxxx
-|    x T0         x T1   |     x
-|    x     #######x#######     x
-|    x     #......x......#     x
-|    x     #......x......#     x
-+----xxxxxxxxxxxxxxxxxxxxxxxxxxx
-<---XOsiz-->
-
-(b) Single-tile image 1
-
-<-------Xsiz------>     +--+
-<----> XTOSiz           |  | Reference grid
-+-----------------+     +--+
-|    <---Xtsiz---->
-|    xxxxxxxxxxxxxx     xxxx
-|    x T0         x     x  x Tile area
-|    x     #######x     xxxx
-|    x     #......x
-|    x     #......x     ####
-+----xxxxxxxxxxxxxx     #..# Image area
-<---XOsiz-->            ####
-
-(a) Single-tile image 2
-
-<----------Xsiz---------->
-<-----XTOSiz------>
-+------------------------+
-|                        |
-|                 xxxxxxxxxxxxx
-|                 x T0   |    x
-|                 x#######    x
-|                 x......#    x
-|                 x......#    x
-+-----------------xxxxxxxxxxxxx
-<-------XOsiz-----X---Xtsiz--->
-]]>
-                  </artwork>
-                </figure>
-
-                <figure anchor="fig-multi-tile-parameter-example">
-                  <name>Example <tt>tile</tt> parameter for a multi-tile image that consists of two tiles.</name>
-                  <artwork type="ascii-art">
-NOTE: '\' line wrapping per RFC 8792
-
-tile=0&amp;00000190000000c8000000c800000000000000\
-c8000000c800000064000000000001080000
-                  </artwork>
-                </figure>
-
-                <table anchor="t-mt-example">
-                  <name>Selected <tt>SIZ</tt> parameters for a two-tile image
-                  and two corresponding single-time images.</name>
-                  <thead>
-                    <tr>
-                      <th><tt>SIZ</tt> parameter</th>
-                      <th>Two-tile image</th>
-                      <th>Image where <tt>tile-index</tt> = 1</th>
-                      <th>Image where <tt>tile-index</tt> = 2</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>XSiz</td>
-                      <td>400</td>
-                      <td>300</td>
-                      <td>400</td>
-                    </tr>
-                    <tr>
-                      <td>YSiz</td>
-                      <td>200</td>
-                      <td>200</td>
-                      <td>200</td>
-                    </tr>
-                    <tr>
-                      <td>XTSiz</td>
-                      <td>200</td>
-                      <td>200</td>
-                      <td>200</td>
-                    </tr>
-                    <tr>
-                      <td>YTSiz</td>
-                      <td>200</td>
-                      <td>200</td>
-                      <td>200</td>
-                    </tr>
-                    <tr>
-                      <td>XOSiz</td>
-                      <td>200</td>
-                      <td>200</td>
-                      <td>300</td>
-                    </tr>
-                    <tr>
-                      <td>YOSiz</td>
-                      <td>0</td>
-                      <td>0</td>
-                      <td>0</td>
-                    </tr>
-                    <tr>
-                      <td>XTOSiz</td>
-                      <td>100</td>
-                      <td>100</td>
-                      <td>300</td>
-                    </tr>
-                    <tr>
-                      <td>YTOSiz</td>
-                      <td>0</td>
-                      <td>0</td>
-                      <td>0</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-              </dd>
-
               <dt><tt>cache</tt></dt>
               <dd>
                 <t>The value of the parameter MUST be either <tt>false</tt> or
@@ -1998,15 +1731,24 @@ c8000000c800000064000000000001080000
         exhaustive.</t>
       </section>
 
-			<section anchor="sec-soc-draft-ietf-avtcore-rtp-j2k-scl-01">
-				<name>Changes from <tt>draft-ietf-avtcore-rtp-j2k-scl-01</tt></name>
+			<section anchor="sec-soc-draft-ietf-avtcore-rtp-j2k-scl-00">
+				<name>Changes from <tt>draft-ietf-avtcore-rtp-j2k-scl-00</tt></name>
 
         <ul>
           <li>Allow multi-tile images in a single stream, in addition to
           allowing multi-tile images to be transmitted as multiple single-tile
-          streams, as specified at <xref target="sec-mt-images"></xref>.</li>
-          <li>Fix incorrect <tt>TRANS</tt> values at <xref
-          target="t-pix-fmts"></xref>.</li>
+          streams.</li>
+          <li>Fix incorrect <tt>TRANS</tt> values.</li>
+        </ul>
+			</section>
+
+      <section anchor="sec-soc-draft-ietf-avtcore-rtp-j2k-scl-01">
+				<name>Changes from <tt>draft-ietf-avtcore-rtp-j2k-scl-01</tt></name>
+
+        <ul>
+          <li>Removed signalling for the transmission of multi-tile images as
+          multiple single-tile image streams (the <tt>tile</tt> media type
+          parameter).</li>
         </ul>
 			</section>
     </section>
