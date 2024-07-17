@@ -1737,9 +1737,8 @@ Packets |        Main         | Body | ... |    Body   | Main ...
         <ul>
           <li>Allow multi-tile images in a single stream, in addition to
           allowing multi-tile images to be transmitted as multiple single-tile
-          streams, as specified at <xref target="sec-mt-images"></xref>.</li>
-          <li>Fix incorrect <tt>TRANS</tt> values at <xref
-          target="t-pix-fmts"></xref>.</li>
+          streams.</li>
+          <li>Fix incorrect <tt>TRANS</tt> values.</li>
         </ul>
 			</section>
 
