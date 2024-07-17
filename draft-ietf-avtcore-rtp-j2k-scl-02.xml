@@ -11,12 +11,12 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude" submissionType="IETF"
 category="std" ipr="trust200902" consensus="true"
-docName="draft-ietf-avtcore-rtp-j2k-scl-01" xml:lang="en" version="3">
+docName="draft-ietf-avtcore-rtp-j2k-scl-02" xml:lang="en" version="3">
   <front>
     <title abbrev="Sub-codestream latency J2K over RTP">RTP Payload Format for
     sub-codestream latency JPEG 2000 streaming</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-avtcore-rtp-j2k-scl-01"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-avtcore-rtp-j2k-scl-02"/>
 
     <author initials='P.-A.' surname='Lemieux' fullname='Pierre-Anthony Lemieux' role="editor">
 
