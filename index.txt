@@ -10,7 +10,7 @@ Expires: 18 January 2025                   University of New South Wales
 
 
    RTP Payload Format for sub-codestream latency JPEG 2000 streaming
-                   draft-ietf-avtcore-rtp-j2k-scl-01
+                   draft-ietf-avtcore-rtp-j2k-scl-02
 
 Abstract
 
